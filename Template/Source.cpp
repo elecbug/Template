@@ -18,6 +18,7 @@ void test()
 		std::cout << list.at(i) << " ";
 
 	list.insert(list.count(), -1);
+	list.at(0) = 8;
 
 	for (int i = 0; i < list.count(); i++)
 		std::cout << list.at(i) << " ";
