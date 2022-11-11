@@ -13,7 +13,7 @@ void test()
 		std::cout << list.at(i) << " ";
 	std::cout << std::endl;
 
-	list.remove(1);
+	list.remove_at(1);
 
 	for (int i = 0; i < list.count(); i++)
 		std::cout << list.at(i) << " ";
@@ -26,7 +26,7 @@ void test()
 		std::cout << list.at(i) << " ";
 	std::cout << std::endl;
 
-	std::cout << list.index_of(-1, [](int x, int y)->bool { return x == y; }) << std::endl;
+	std::cout << list.index_of([](int x)->bool { return x == -1; }) << std::endl;
 	std::cout << list.index_of(8) << std::endl;
 
 	EB::List<int> list2 = EB::List<int>(9, 10);
@@ -42,6 +42,12 @@ void test()
 
 	for (int i = 0; i < list.count(); i++)
 		std::cout << list.at(i) << " ";
+	std::cout << std::endl;
+
+	list2.remove_all([](int x)->bool {return x > 5; });
+	
+	for (int i = 0; i < list2.count(); i++)
+		std::cout << list2.at(i) << " ";
 	std::cout << std::endl;
 }
 
