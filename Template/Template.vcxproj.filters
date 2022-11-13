@@ -21,5 +21,11 @@
     <ClCompile Include="list.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
+    <ClCompile Include="stack.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="queue.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

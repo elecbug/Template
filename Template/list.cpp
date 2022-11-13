@@ -1,3 +1,5 @@
+#pragma once
+
 namespace EB
 {
 	template <typename T>
@@ -7,7 +9,7 @@ namespace EB
 		class Node
 		{
 		public:
-			T value;
+			T data;
 			Node* previous;
 			Node* next;
 
@@ -15,7 +17,7 @@ namespace EB
 			{
 				this->previous = 0;
 				this->next = 0;
-				this->value = data;
+				this->data = data;
 			}
 		};
 
@@ -75,13 +77,13 @@ namespace EB
 				insert(0, init_value);
 			}
 		}
-		List(T* data_array, size_t length)
+		List(T* values, size_t length)
 		{
 			initailize();
 
 			for (int i = 0; i < length; i++)
 			{
-				insert(i, data_array[i]);
+				insert(i, values[i]);
 			}
 		}
 
@@ -96,9 +98,9 @@ namespace EB
 			delete this->tail;
 		}
 
-		void insert(size_t index, T data)
+		void insert(size_t index, T value)
 		{
-			Node* creat = new Node(data);
+			Node* creat = new Node(value);
 
 			creat->next = get(index);
 			creat->previous = creat->next->previous;
@@ -108,27 +110,27 @@ namespace EB
 
 			this->size++;
 		}
-		void add(T data)
+		void add(T value)
 		{
-			insert(count(), data);
+			insert(count(), value);
 		}
-		void append(List<T>& post)
+		void append(List<T>& connecting)
 		{
-			for (int i = 0; i < post.count(); i++)
+			for (int i = 0; i < connecting.count(); i++)
 			{
-				insert(count(), post.at(i));
+				insert(count(), connecting.at(i));
 			}
 		}
 
 		T& at(size_t index)
 		{
-			return get(index)->value;
+			return get(index)->data;
 		}
 
 		T remove_at(size_t index)
 		{
 			Node* erase = get(index);
-			T result = erase->value;
+			T result = erase->data;
 
 			erase->previous->next = erase->next;
 			erase->next->previous = erase->previous;
@@ -151,13 +153,13 @@ namespace EB
 			}
 		}
 
-		size_t index_of(T data)
+		size_t index_of(T value)
 		{
 			Node* temp = this->head->next;
 
 			for (int i = 0; i < count(); i++)
 			{
-				if (temp->value == data)
+				if (temp->data == value)
 				{
 					return i;
 				}

@@ -1,8 +1,10 @@
 #include <iostream>
 #include <crtdbg.h>
 #include "list.cpp"
+#include "stack.cpp"
+#include "queue.cpp"
 
-void test()
+void list_test()
 {
 	EB::List<int> list = EB::List<int>(7);
 
@@ -51,8 +53,54 @@ void test()
 	std::cout << std::endl;
 }
 
+void stack_test()
+{
+	EB::Stack<int> stack = EB::Stack<int>();
+
+	for (int i = 0; i < 10; i++)
+		stack.push(i);
+
+	for (int i = 0; i < 5; i++)
+		std::cout << stack.pop() <<" ";
+	std::cout << std::endl;
+
+	for (int i = 0; i < 10; i++)
+		stack.push(i);
+
+	std::cout << stack.top() << std::endl;
+
+	for (int i = 0; i < 15; i++)
+		std::cout << stack.pop() << " ";
+	std::cout << std::endl;
+
+}
+
+void queue_test()
+{
+	EB::Queue<int> queue = EB::Queue<int>();
+
+	for (int i = 0; i < 10; i++)
+		queue.enque(i);
+
+	for (int i = 0; i < 5; i++)
+		std::cout << queue.deque() << " ";
+	std::cout << std::endl;
+
+	for (int i = 0; i < 10; i++)
+		queue.enque(i);
+
+	std::cout << queue.peek() << std::endl;
+
+	for (int i = 0; i < 15; i++)
+		std::cout << queue.deque() << " ";
+	std::cout << std::endl;
+
+}
+
 int main()
 {
-	test();
+	list_test();
+	stack_test();
+	queue_test();
 	_CrtDumpMemoryLeaks();
 }
