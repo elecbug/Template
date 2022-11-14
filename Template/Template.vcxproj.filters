@@ -27,5 +27,8 @@
     <ClCompile Include="queue.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
+    <ClCompile Include="array.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

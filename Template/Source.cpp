@@ -40,16 +40,24 @@ void list_test()
 		std::cout << list2.at(i) << " ";
 	std::cout << std::endl;
 
-	list = list2.sublist(5, 15);
+	EB::List<int>* list4 = list2.sublist(5, 15);
 
-	for (int i = 0; i < list.count(); i++)
-		std::cout << list.at(i) << " ";
+	for (int i = 0; i < list4->count(); i++)
+		std::cout << list4->at(i) << " ";
 	std::cout << std::endl;
+
+	delete list4;
 
 	list2.remove_all([](int x)->bool {return x > 5; });
 	
 	for (int i = 0; i < list2.count(); i++)
 		std::cout << list2.at(i) << " ";
+	std::cout << std::endl;
+
+	EB::List<int> list3 = EB::List<int>(list2);
+
+	for (int i = 0; i < list3.count(); i++)
+		std::cout << list3.at(i) << " ";
 	std::cout << std::endl;
 }
 
@@ -100,7 +108,7 @@ void queue_test()
 int main()
 {
 	list_test();
-	stack_test();
-	queue_test();
+	// stack_test();
+	// queue_test();
 	_CrtDumpMemoryLeaks();
 }

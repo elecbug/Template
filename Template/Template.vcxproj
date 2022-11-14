@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="array.cpp" />
     <ClCompile Include="list.cpp" />
     <ClCompile Include="queue.cpp" />
     <ClCompile Include="Source.cpp" />

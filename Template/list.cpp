@@ -86,6 +86,15 @@ namespace EB
 				insert(i, values[i]);
 			}
 		}
+		List(const EB::List<T>& list)
+		{
+			initailize();
+
+			for (Node* temp = list.head->next; temp != list.tail; temp = temp->next)
+			{
+				add(temp->data);
+			}
+		}
 
 		~List()
 		{
@@ -194,7 +203,7 @@ namespace EB
 			return this->size;
 		}
 
-		List<T>& sublist(size_t start, size_t end)
+		List<T>* sublist(size_t start, size_t end)
 		{
 			List<T>* result = new List(0);
 
@@ -203,7 +212,7 @@ namespace EB
 				result->insert(i - start, at(i));
 			}
 
-			return *result;
+			return result;
 		}
 	};
 }
