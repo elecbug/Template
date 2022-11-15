@@ -86,7 +86,7 @@ namespace EB
 				insert(i, values[i]);
 			}
 		}
-		List(const EB::List<T>& list)
+		List(const List<T>& list)
 		{
 			initailize();
 
@@ -205,7 +205,7 @@ namespace EB
 
 		List<T>* sublist(size_t start, size_t end)
 		{
-			List<T>* result = new List(0);
+			List<T>* result = new List<T>(0);
 
 			for (int i = start; i < end; i++)
 			{

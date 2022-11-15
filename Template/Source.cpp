@@ -3,6 +3,7 @@
 #include "list.cpp"
 #include "stack.cpp"
 #include "queue.cpp"
+#include "array.cpp"
 
 void list_test()
 {
@@ -105,10 +106,42 @@ void queue_test()
 
 }
 
+void array_test()
+{
+	int src[] = { 0,1,2,3,4,5 };
+	EB::Array<int> arr = EB::Array<int>(src, sizeof(src) / 4);
+
+	arr.insert(0, -1);
+	arr.add(6);
+	arr.remove_at(7);
+	arr.remove_all([](int x)->bool {return x >= 4; });
+
+	for (int i = 0; i < arr.count(); i++)
+		std::cout << arr.at(i) << " ";
+	std::cout << std::endl;
+
+	auto arr2 = EB::Array<int>(src, sizeof(src) / 4);
+	arr.append(arr2);
+
+	for (int i = 0; i < arr.count(); i++)
+		std::cout << arr.at(i) << " ";
+	std::cout << std::endl;
+
+	auto arr3 = arr.subarray(1, 4);
+
+	for (int i = 0; i < arr3->count(); i++)
+		std::cout << arr3->at(i) << " ";
+	std::cout << std::endl;
+
+	delete arr3;
+}
+
 int main()
 {
-	list_test();
+	// list_test();
 	// stack_test();
 	// queue_test();
+	array_test();
+
 	_CrtDumpMemoryLeaks();
 }
