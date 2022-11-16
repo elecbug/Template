@@ -1,9 +1,11 @@
 #include <iostream>
+#include <time.h>
 #include <crtdbg.h>
 #include "list.cpp"
 #include "stack.cpp"
 #include "queue.cpp"
 #include "array.cpp"
+#include "bst.cpp"
 
 void list_test()
 {
@@ -136,12 +138,35 @@ void array_test()
 	delete arr3;
 }
 
+void bst_test()
+{
+	EB::BST<int> bst = EB::BST<int>();
+
+	for (int i = 0; i < 100; i++)
+	{
+		srand(time(0) + rand());
+		bst.insert(rand() % 100);
+	}
+
+	bst.order(bst.INORDER);
+	
+	for (int i = 0; i < 20; i++)
+	{
+		std::cout << bst.remove(i) << " ";
+	}
+
+	bst.order(bst.INORDER);
+
+	bst.order(bst.INORDER);
+}
+
 int main()
 {
 	// list_test();
 	// stack_test();
 	// queue_test();
-	array_test();
+	// array_test();
+	bst_test();
 
 	_CrtDumpMemoryLeaks();
 }

@@ -132,6 +132,7 @@
     <ClCompile Include="queue.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="stack.cpp" />
+    <ClCompile Include="bst.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
