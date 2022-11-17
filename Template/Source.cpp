@@ -144,20 +144,19 @@ void bst_test()
 
 	for (int i = 0; i < 100; i++)
 	{
-		srand(time(0) + rand());
-		bst.insert(rand() % 100);
+		bst.insert(i % 2 == 1 ? i * 2 + 1 : i / 2);
 	}
 
-	bst.order(bst.INORDER);
+	bst.order(EB::INORDER);
+	std::cout << std::endl;
 	
-	for (int i = 0; i < 20; i++)
+	for (int i = 0; i < 120; i++)
 	{
-		std::cout << bst.remove(i) << " ";
+		std::cout << (bst.remove(i)? "T" : "F") << " ";
 	}
 
-	bst.order(bst.INORDER);
-
-	bst.order(bst.INORDER);
+	bst.order(EB::INORDER);
+	std::cout << std::endl;
 }
 
 int main()
