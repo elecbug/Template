@@ -150,10 +150,13 @@ void bst_test()
 	bst.order(EB::INORDER);
 	std::cout << std::endl;
 	
-	for (int i = 0; i < 120; i++)
+	for (int i = 110; i < 150; i++)
 	{
 		std::cout << (bst.remove(i)? "T" : "F") << " ";
 	}
+	std::cout << std::endl;
+
+	bst.remove_all([](int data)->bool {return data > 10 && data < 30; });
 
 	bst.order(EB::INORDER);
 	std::cout << std::endl;

@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include "queue.cpp";
 
 namespace EB
 {
@@ -27,7 +28,7 @@ namespace EB
 
 	private:
 		Node* root;
-		bool is_self_balaced;
+		size_t size;
 
 		void inorder(Node* root)
 		{
@@ -56,22 +57,35 @@ namespace EB
 				std::cout << root->data << " ";
 			}
 		}
+		void remove_order(Node* root, Queue<T>* queue, bool (*condition)(T data))
+		{
+			if (root)
+			{
+				if (condition(root->data))
+				{
+					queue->enque(root->data);
+				}
+				remove_order(root->left, queue, condition);
+				remove_order(root->right, queue, condition);
+			}
+		}
 
 	public:
-		BST(bool avl = false)
+		BST()
 		{
 			this->root = 0;
-			this->is_self_balaced = avl;
+			this->size = 0;
 		}
-		BST(T* values, size_t length, bool avl = false)
+		BST(T* values, size_t length)
 		{
 			this->root = 0;
 			insert(values, length);
-			this->is_self_balaced = avl;
+			this->size = 0;
 		}
 
 		~BST()
 		{
+			remove_all();
 		}
 
 		bool insert(T value)
@@ -79,6 +93,8 @@ namespace EB
 			if (!this->root)
 			{
 				this->root = new Node(value);
+				this->size++;
+
 				return true;
 			}
 			else
@@ -96,6 +112,8 @@ namespace EB
 						else
 						{
 							location->left = new Node(value);
+							this->size++;
+
 							return true;
 						}
 					}
@@ -108,6 +126,8 @@ namespace EB
 						else
 						{
 							location->right = new Node(value);
+							this->size++;
+
 							return true;
 						}
 					}
@@ -170,7 +190,11 @@ namespace EB
 						{
 							if (this->root == location)
 							{
-								if (location->left)
+								if (this->size == 1)
+								{
+									this->root = 0;
+								}
+								else if (location->left)
 								{
 									this->root = location->left;
 								}
@@ -214,7 +238,8 @@ namespace EB
 							}
 
 							delete location;
-							
+							this->size--;
+
 							return true;
 						}
 
@@ -226,8 +251,21 @@ namespace EB
 				}
 			}
 		}
-		void remove_all(bool (*condition)(T value) = [](T value)->bool {return true; })
+		size_t remove_all(bool (*condition)(T value) = [](T value)->bool {return true; })
 		{
+			Queue<T>* queue = new Queue<T>();
+			size_t count = 0;
+
+			remove_order(this->root, queue, condition);
+
+			while (!queue->is_empty())
+			{
+				remove(queue->deque());
+				count++;
+			}
+			delete queue;
+
+			return count;
 		}
 
 		bool find(T value)

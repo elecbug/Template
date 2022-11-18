@@ -28,5 +28,10 @@ namespace EB
 		{
 			return this->at(0);
 		}
+
+		bool is_empty()
+		{
+			return this->count() == 0;
+		}
 	};
 }
