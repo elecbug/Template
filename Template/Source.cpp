@@ -205,12 +205,28 @@ void bst_test()
 
 void heap_test()
 {
-	EB::Heap<int> heap = EB::Heap<int>();
+	EB::Heap<int> heap = EB::Heap<int>([](int x, int y)->bool {return x < y; });
 	
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 10000; i++)
 	{
-		heap.insert(i);
+		heap.insert(i % 2 == 0 ? i * 4 : i * 3);
 	}
+
+	EB::Array<int>* sorting = heap.heap_sort();
+
+	while (!heap.is_empty())
+	{
+		std::cout << heap.remove_top() << " ";
+	}
+	std::cout << std::endl;
+
+	for (int i = 0; i < sorting->count(); i++)
+	{
+		std::cout << sorting->at(i) << " ";
+	}
+	std::cout << std::endl;
+
+	delete sorting;
 }
 
 int main()

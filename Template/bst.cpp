@@ -158,9 +158,9 @@ namespace EB
 		BST(T* values, size_t length, bool avl_mode = false)
 		{
 			this->root = 0;
-			insert(values, length);
 			this->size = 0;
 			this->avl_mode = avl_mode;
+			insert(values, length);
 		}
 		BST(const BST<T>& bst)
 		{
