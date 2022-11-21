@@ -6,6 +6,7 @@
 #include "queue.cpp"
 #include "array.cpp"
 #include "bst.cpp"
+#include "heap.cpp"
 
 void list_test()
 {
@@ -202,13 +203,24 @@ void bst_test()
 
 }
 
+void heap_test()
+{
+	EB::Heap<int> heap = EB::Heap<int>();
+	
+	for (int i = 0; i < 10; i++)
+	{
+		heap.insert(i);
+	}
+}
+
 int main()
 {
 	// list_test();
 	// stack_test();
 	// queue_test();
 	// array_test();
-	bst_test();
+	// bst_test();
+	heap_test();
 
 	_CrtDumpMemoryLeaks();
 }

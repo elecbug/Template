@@ -39,5 +39,8 @@
     <ClCompile Include="bst.cpp">
       <Filter>Resource Files\Nonlinear</Filter>
     </ClCompile>
+    <ClCompile Include="heap.cpp">
+      <Filter>Resource Files\Nonlinear</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

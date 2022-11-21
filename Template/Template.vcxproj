@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClCompile Include="array.cpp" />
     <ClCompile Include="bst.cpp" />
+    <ClCompile Include="heap.cpp" />
     <ClCompile Include="list.cpp" />
     <ClCompile Include="queue.cpp" />
     <ClCompile Include="Source.cpp" />
