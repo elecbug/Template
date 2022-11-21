@@ -72,9 +72,8 @@ namespace EB
 		}
 
 	private:
-		inline int max(T x, T y) { return x > y ? x : y; }
-
-		int height(Node* node)
+		inline long long max(T x, T y) { return x > y ? x : y; }
+		long long height(Node* node)
 		{
 			if (!node)
 			{
@@ -102,7 +101,7 @@ namespace EB
 		}
 		Node* check_violation(Node* node)
 		{
-			int balance = height(node->left) - height(node->right);
+			long long balance = height(node->left) - height(node->right);
 
 			if (balance > 1)
 			{
@@ -420,6 +419,11 @@ namespace EB
 			default:
 				break;
 			}
+		}
+
+		size_t count()
+		{
+			return this->size;
 		}
 	};
 }
