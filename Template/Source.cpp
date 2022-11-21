@@ -63,6 +63,21 @@ void list_test()
 	for (int i = 0; i < list3.count(); i++)
 		std::cout << list3.at(i) << " ";
 	std::cout << std::endl;
+
+	EB::Array<int>* arr = list3.to_array();
+
+	for (int i = 0; i < arr->count(); i++)
+		std::cout << arr->at(i) << " ";
+	std::cout << std::endl;
+
+	list4 = arr->to_list();
+
+	for (int i = 0; i < list4->count(); i++)
+		std::cout << list4->at(i) << " ";
+	std::cout << std::endl;
+
+	delete arr;
+	delete list4;
 }
 
 void stack_test()
@@ -231,12 +246,12 @@ void heap_test()
 
 int main()
 {
-	// list_test();
+	list_test();
 	// stack_test();
 	// queue_test();
 	// array_test();
 	// bst_test();
-	heap_test();
+	// heap_test();
 
 	_CrtDumpMemoryLeaks();
 }

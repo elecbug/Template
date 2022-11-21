@@ -4,6 +4,9 @@
 namespace EB
 {
 	template <typename T>
+	class List;
+
+	template <typename T>
 	class Array
 	{
 	private:
@@ -11,9 +14,13 @@ namespace EB
 		size_t size;
 	
 	public:
-		Array(size_t count)
+		Array(size_t count = 0, T init_value = 0)
 		{
 			this->values = new T[count];
+			for (int i = 0; i < count; i++)
+			{
+				this->values[i] = init_value;
+			}
 			this->size = count;
 		}
 		Array(T* values, size_t length)
@@ -164,6 +171,13 @@ namespace EB
 			{
 				throw "OutOfIndex";
 			}
+		}
+
+		List<T>* to_list()
+		{
+			List<T>* result = new List<T>(this->values, this->size);
+			
+			return result;
 		}
 	};
 }

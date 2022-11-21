@@ -3,6 +3,9 @@
 namespace EB
 {
 	template <typename T>
+	class Array;
+
+	template <typename T>
 	class List
 	{
 	private:
@@ -210,6 +213,20 @@ namespace EB
 			for (int i = start; i < end; i++)
 			{
 				result->insert(i - start, at(i));
+			}
+
+			return result;
+		}
+
+		Array<T>* to_array()
+		{
+			Array<T>* result = new Array<T>(this->size);
+			Node* temp = this->head;
+
+			for (int i = 0; i < this->size; i++)
+			{
+				temp = temp->next;
+				result->at(i) = temp->data;
 			}
 
 			return result;
