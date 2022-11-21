@@ -25,10 +25,11 @@ namespace EB
 				this->data = data;
 			}
 		};
-
+		
 	private:
 		Node* root;
 		size_t size;
+		bool avl_mode;
 
 		void inorder(Node* root)
 		{
@@ -57,7 +58,7 @@ namespace EB
 				std::cout << root->data << " ";
 			}
 		}
-		void remove_order(Node* root, Queue<T>* queue, bool (*condition)(T data))
+		void condition_order(Node* root, Queue<T>* queue, bool (*condition)(T data))
 		{
 			if (root)
 			{
@@ -65,22 +66,116 @@ namespace EB
 				{
 					queue->enque(root->data);
 				}
-				remove_order(root->left, queue, condition);
-				remove_order(root->right, queue, condition);
+				condition_order(root->left, queue, condition);
+				condition_order(root->right, queue, condition);
+			}
+		}
+
+	private:
+		inline int max(T x, T y) { return x > y ? x : y; }
+
+		int height(Node* node)
+		{
+			if (!node)
+			{
+				return -1;
+			}
+			else
+			{
+				return max(height(node->left), height(node->right)) + 1;
+			}
+		}
+
+		Node* single_left(Node* x)
+		{
+			Node* w = x->right;
+			x->right = w->left;
+			w->left = x;
+			return w;
+		}
+		Node* single_right(Node* w)
+		{
+			Node* x = w->left;
+			w->left = x->right;
+			x->right = w;
+			return x;
+		}
+		Node* check_violation(Node* node)
+		{
+			int balance = height(node->left) - height(node->right);
+
+			if (balance > 1)
+			{
+				if (node->left->left)
+				{
+					// LL
+					// printf("LL violation\n");
+					node = single_right(node);
+				}
+				else if (node->left->right)
+				{
+					// LR
+					// printf("LR violation\n");
+					node->left = single_left(node->left);
+					node = single_right(node);
+				}
+			}
+			else if (balance < -1)
+			{
+				if (node->right->right)
+				{
+					// RR
+					// printf("RR violation\n");
+					node = single_left(node);
+				}
+				else if (node->right->left)
+				{
+					// RL
+					// printf("RL violation\n");
+					node->right = single_right(node->right);
+					node = single_left(node);
+				}
+			}
+
+			return node;
+		}
+		void avl_violation(Node* root)
+		{
+			if (root)
+			{
+				root = check_violation(root);
+				root->left = check_violation(root->left);
+				root->right = check_violation(root->right);
 			}
 		}
 
 	public:
-		BST()
+		BST(bool avl_mode = false)
 		{
 			this->root = 0;
 			this->size = 0;
+			this->avl_mode = avl_mode;
 		}
-		BST(T* values, size_t length)
+		BST(T* values, size_t length, bool avl_mode = false)
 		{
 			this->root = 0;
 			insert(values, length);
 			this->size = 0;
+			this->avl_mode = avl_mode;
+		}
+		BST(const BST<T>& bst)
+		{
+			this->avl_mode = bst.avl_mode;
+
+			Queue<T>* queue = new Queue<T>();
+			condition_order(bst.root, queue, [](T data)->bool { return true; });
+
+			while (!queue->is_empty())
+			{
+				insert(queue->deque());
+			}
+
+			delete queue;
 		}
 
 		~BST()
@@ -114,6 +209,11 @@ namespace EB
 							location->left = new Node(value);
 							this->size++;
 
+							if (this->avl_mode)
+							{
+								this->root = check_violation(this->root);
+							}
+
 							return true;
 						}
 					}
@@ -127,6 +227,11 @@ namespace EB
 						{
 							location->right = new Node(value);
 							this->size++;
+
+							if (this->avl_mode)
+							{
+								this->root = check_violation(this->root);
+							}
 
 							return true;
 						}
@@ -240,9 +345,13 @@ namespace EB
 							delete location;
 							this->size--;
 
+							if (this->avl_mode && this->root)
+							{
+								this->root = check_violation(this->root);
+							}
+
 							return true;
 						}
-
 					}
 				}
 				else
@@ -256,7 +365,7 @@ namespace EB
 			Queue<T>* queue = new Queue<T>();
 			size_t count = 0;
 
-			remove_order(this->root, queue, condition);
+			condition_order(this->root, queue, condition);
 
 			while (!queue->is_empty())
 			{

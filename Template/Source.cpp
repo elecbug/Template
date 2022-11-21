@@ -147,6 +147,8 @@ void bst_test()
 		bst.insert(i % 2 == 1 ? i * 2 + 1 : i / 2);
 	}
 
+	EB::BST<int> bst2 = EB::BST<int>(bst);
+
 	bst.order(EB::INORDER);
 	std::cout << std::endl;
 	
@@ -160,6 +162,44 @@ void bst_test()
 
 	bst.order(EB::INORDER);
 	std::cout << std::endl;
+
+	bst.remove_all();
+	
+	bst.order(EB::INORDER);
+	std::cout << std::endl;
+
+	bst2.order(EB::INORDER);
+	std::cout << std::endl;
+
+	EB::BST<int> bst3 = EB::BST<int>(true);
+
+	for (int i = 0; i < 10; i++)
+	{
+		bst3.insert(i);
+	}
+
+	bst3.order(EB::PREORDER);
+	std::cout << std::endl;
+
+	bst3.order(EB::INORDER);
+	std::cout << std::endl;
+
+	EB::BST<int> bst4 = EB::BST<int>(true);
+
+	for (int i = 0; i < 10; i++)
+	{
+		bst4.insert(i);
+	}
+
+	bst4.remove_all([](int i)->bool {return i > 4 && i < 8; });
+
+	bst4.order(EB::PREORDER);
+	std::cout << std::endl;
+
+	bst4.order(EB::INORDER);
+	std::cout << std::endl;
+
+
 }
 
 int main()
