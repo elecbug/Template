@@ -6,7 +6,6 @@ namespace EB
 	template <typename T>
 	class Queue;
 
-
 	const int INORDER = 0;
 	const int PREORDER = 1;
 	const int POSTORDER = 2;
@@ -21,14 +20,14 @@ namespace EB
 			Node* left, * right;
 			T data;
 
-			Node(T data = 0)
+			Node(T data)
 			{
 				this->left = 0;
 				this->right = 0;
 				this->data = data;
 			}
 		};
-		
+
 	private:
 		Node* root;
 		size_t size;
@@ -151,6 +150,8 @@ namespace EB
 			}
 		}
 
+		bool (*condition)(T x, T y) = [](T x, T y)->bool { return x < y; };
+
 	public:
 		BST(bool avl_mode = false)
 		{
@@ -200,7 +201,7 @@ namespace EB
 
 				while (true)
 				{
-					if (location->data > value)
+					if (this->condition(value, location->data))
 					{
 						if (location->left)
 						{
@@ -219,7 +220,7 @@ namespace EB
 							return true;
 						}
 					}
-					else if (location->data < value)
+					else if (this->condition(location->data, value))
 					{
 						if (location->right)
 						{
@@ -257,7 +258,7 @@ namespace EB
 			return result;
 		}
 
-		bool remove(T value)
+		T remove(T value)
 		{
 			Node* location = this->root;
 			Node* parent = 0;
@@ -266,12 +267,12 @@ namespace EB
 			{
 				if (location)
 				{
-					if (location->data < value)
+					if (this->condition(location->data, value))
 					{
 						parent = location;
 						location = location->right;
 					}
-					else if (location->data > value)
+					else if (this->condition(value, location->data))
 					{
 						parent = location;
 						location = location->left;
@@ -344,6 +345,8 @@ namespace EB
 								}
 							}
 
+							T result = location->data;
+
 							delete location;
 							this->size--;
 
@@ -352,13 +355,13 @@ namespace EB
 								this->root = check_violation(this->root);
 							}
 
-							return true;
+							return result;
 						}
 					}
 				}
 				else
 				{
-					return false;
+					throw "NotFound";
 				}
 			}
 		}
@@ -379,7 +382,7 @@ namespace EB
 			return count;
 		}
 
-		bool find(T value)
+		T find(T value)
 		{
 			Node* location = this->root;
 
@@ -387,22 +390,22 @@ namespace EB
 			{
 				if (location)
 				{
-					if (location->data < value)
+					if (this->condition(location->data, value))
 					{
 						location = location->right;
 					}
-					else if (location->data > value)
+					else if (this->condition(value, location->data))
 					{
 						location = location->left;
 					}
 					else
 					{
-						return true;
+						return location->data;
 					}
 				}
 				else
 				{
-					return false;
+					throw "NotFound";
 				}
 			}
 		}

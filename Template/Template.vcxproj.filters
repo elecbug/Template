@@ -45,5 +45,8 @@
     <ClCompile Include="heap.cpp">
       <Filter>Resource Files\Nonlinear</Filter>
     </ClCompile>
+    <ClCompile Include="map.cpp">
+      <Filter>Resource Files\Nonlinear</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

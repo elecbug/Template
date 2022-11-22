@@ -8,7 +8,7 @@ namespace EB
 	template <typename T>
 	class Heap
 	{
-	protected:
+	private:
 		Array<T>* data;
 		size_t size;
 		bool (*condition)(T x, T y);
@@ -115,6 +115,11 @@ namespace EB
 			{
 				throw "OutOfIndex";
 			}
+		}
+
+		const T get_root()
+		{
+			return this->data->at(0);
 		}
 
 		size_t count()

@@ -7,6 +7,7 @@
 #include "array.cpp"
 #include "bst.cpp"
 #include "heap.cpp"
+#include "map.cpp"
 
 void list_test()
 {
@@ -178,7 +179,14 @@ void bst_test()
 	
 	for (int i = 110; i < 150; i++)
 	{
-		std::cout << (bst.remove(i)? "T" : "F") << " ";
+		try
+		{
+			std::cout << bst.remove(i) << " ";
+		}
+		catch (const char* str)
+		{
+
+		}
 	}
 	std::cout << std::endl;
 
@@ -222,8 +230,6 @@ void bst_test()
 
 	bst4.order(EB::INORDER);
 	std::cout << std::endl;
-
-
 }
 
 void heap_test()
@@ -252,14 +258,33 @@ void heap_test()
 	delete sorting;
 }
 
+void map_test()
+{
+	EB::Map<int, int>map = EB::Map<int, int>();
+
+	map.insert(0, 10);
+	map.insert(1, 20);
+	map.insert(2, 30);
+	map.insert(3, 40);
+	map.insert(4, 50);
+	map.insert(5, 60);
+	map.insert(6, 70);
+	map.insert(7, 80);
+
+	std::cout << map.value(3) << std::endl;
+	map.remove(3);
+	std::cout << map.value(3) << std::endl;
+}
+
 int main()
 {
 	// list_test();
 	// stack_test();
 	// queue_test();
-	array_test();
+	// array_test();
 	// bst_test();
 	// heap_test();
+	map_test();
 
 	_CrtDumpMemoryLeaks();
 }

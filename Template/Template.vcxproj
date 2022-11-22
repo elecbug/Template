@@ -131,6 +131,7 @@
     <ClCompile Include="bst.cpp" />
     <ClCompile Include="heap.cpp" />
     <ClCompile Include="list.cpp" />
+    <ClCompile Include="map.cpp" />
     <ClCompile Include="queue.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="stack.cpp" />

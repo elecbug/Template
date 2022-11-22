@@ -69,7 +69,7 @@ namespace EB
 		}
 
 	public:
-		Array(size_t count = 0, T init_value = 0)
+		Array(size_t count = 0, T init_value = (T)0)
 		{
 			this->values = new T[count];
 			for (int i = 0; i < count; i++)
