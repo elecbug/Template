@@ -1,5 +1,4 @@
 #pragma once
-#include <iostream>
 #include <stdlib.h>
 
 namespace EB
@@ -38,9 +37,6 @@ namespace EB
 		}
 		void parted_qsort(size_t start, size_t end, bool (*condition)(T x, T y))
 		{
-			//
-			std::cout << start << "~" << end << ": ";
-
 			if (start < end)
 			{
 				size_t f_start = start, f_end = end;
@@ -50,10 +46,6 @@ namespace EB
 				swap(at(point), at(end));
 
 				T& pivot = at(end);
-
-				//
-				std::cout << (end) << "(" << at(end) << ")" << " : ";
-
 				end--;
 
 				while (start < end)
@@ -70,11 +62,6 @@ namespace EB
 				}
 				swap(at(start), at(end));
 				swap(pivot, at(end + 1));
-
-				//
-				for (int i = 0; i < this->size; i++)
-					std::cout << values[i] << " ";
-				std::cout << std::endl;
 
 				parted_qsort(f_start, end, condition);
 				parted_qsort(end + 2, f_end, condition);
