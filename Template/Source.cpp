@@ -152,6 +152,14 @@ void array_test()
 	std::cout << std::endl;
 
 	delete arr3;
+
+	EB::Array<int> hi = EB::Array<int>(100);
+	for (int i = 100; i > 0; i--)
+		hi.at(100 - i) = i;
+	hi.qsort();
+	for (int i = 0; i < hi.count(); i++)
+		std::cout << hi.at(i) << " ";
+	std::cout << std::endl;
 }
 
 void bst_test()
@@ -246,10 +254,10 @@ void heap_test()
 
 int main()
 {
-	list_test();
+	// list_test();
 	// stack_test();
 	// queue_test();
-	// array_test();
+	array_test();
 	// bst_test();
 	// heap_test();
 

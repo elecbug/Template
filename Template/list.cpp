@@ -46,7 +46,7 @@ namespace EB
 			{
 				Node* result = this->tail;
 
-				for (int i = this->size; i > index; i--)
+				for (size_t i = this->size; i > index; i--)
 				{
 					result = result->previous;
 				}
@@ -210,7 +210,7 @@ namespace EB
 		{
 			List<T>* result = new List<T>(0);
 
-			for (int i = start; i < end; i++)
+			for (size_t i = start; i < end; i++)
 			{
 				result->insert(i - start, at(i));
 			}

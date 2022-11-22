@@ -12,15 +12,15 @@
     <Filter Include="Resource Files\Linear">
       <UniqueIdentifier>{ec19c1cf-a54a-4ae4-bd47-d5e06bdab10b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files\Nonlinear">
-      <UniqueIdentifier>{80d7a751-bba9-49ef-93cc-d09c869575f0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
     <Filter Include="Resource Files\Expand">
       <UniqueIdentifier>{a62d345b-f22e-416a-b402-fcb7f49d1093}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Nonlinear">
+      <UniqueIdentifier>{80d7a751-bba9-49ef-93cc-d09c869575f0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

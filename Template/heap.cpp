@@ -1,8 +1,10 @@
 #pragma once
-#include "array.cpp"
 
 namespace EB
 {
+	template <typename T>
+	class Array;
+
 	template <typename T>
 	class Heap
 	{

@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 #include <stdlib.h>
 
 namespace EB
@@ -13,6 +14,73 @@ namespace EB
 		T* values;
 		size_t size;
 	
+	private:
+		void swap(T& x, T& y)
+		{
+			T temp = x;
+			x = y;
+			y = temp;
+		}
+		size_t middle(size_t* points)
+		{
+			if (at(points[0]) > at(points[1]) && at(points[0]) > at(points[2]))
+			{
+				return at(points[1]) > at(points[2]) ? points[1] : points[2];
+			}
+			else if (at(points[1]) > at(points[0]) && at(points[1]) > at(points[2]))
+			{
+				return at(points[0]) > at(points[2]) ? points[0] : points[2];
+			}
+			else
+			{
+				return at(points[0]) > at(points[1]) ? points[0] : points[1];
+			}
+		}
+		void parted_qsort(size_t start, size_t end, bool (*condition)(T x, T y))
+		{
+			//
+			std::cout << start << "~" << end << ": ";
+
+			if (start < end)
+			{
+				size_t f_start = start, f_end = end;
+				size_t points[] = { start, (start + end) / 2, end };
+				size_t point = middle(points);
+
+				swap(at(point), at(end));
+
+				T& pivot = at(end);
+
+				//
+				std::cout << (end) << "(" << at(end) << ")" << " : ";
+
+				end--;
+
+				while (start < end)
+				{
+					while (condition(at(start), pivot))
+					{
+						start++;
+					}
+					while (condition(pivot, at(end)))
+					{
+						end--;
+					}
+					swap(at(start), at(end));
+				}
+				swap(at(start), at(end));
+				swap(pivot, at(end + 1));
+
+				//
+				for (int i = 0; i < this->size; i++)
+					std::cout << values[i] << " ";
+				std::cout << std::endl;
+
+				parted_qsort(f_start, end, condition);
+				parted_qsort(end + 2, f_end, condition);
+			}
+		}
+
 	public:
 		Array(size_t count = 0, T init_value = 0)
 		{
@@ -43,19 +111,24 @@ namespace EB
 			delete this->values;
 		}
 
-	public:
 		void insert(size_t index, T value)
 		{
 			if (index >= 0 && index <= this->size)
 			{
-				this->values = (T*)realloc(this->values, sizeof(T) * (this->size + 1));
-				this->size++;
-
-				for (int i = this->size - 1; i > index; i--)
+				if (this->values = (T*)realloc(this->values, sizeof(T) * (this->size + 1)))
 				{
-					this->values[i] = this->values[i - 1];
+					this->size++;
+
+					for (size_t i = this->size - 1; i > index; i--)
+					{
+						this->values[i] = this->values[i - 1];
+					}
+					this->values[index] = value;
 				}
-				this->values[index] = value;
+				else
+				{
+					throw "MemoryLeaks";
+				}
 			}
 			else
 			{
@@ -64,21 +137,32 @@ namespace EB
 		}
 		void add(T value)
 		{
-			this->values = (T*)realloc(this->values, sizeof(T) * (this->size + 1));
-			this->size++;
+			if (this->values = (T*)realloc(this->values, sizeof(T) * (this->size + 1)))
+			{
+				this->size++;
 
-			this->values[this->size - 1] = value;
+				this->values[this->size - 1] = value;
+			}
+			else
+			{
+				throw "MemoryLeaks";
+			}
 		}
 		void append(Array<T>& connecting)
 		{
-			this->values = (T*)realloc(this->values, sizeof(T) * (this->size + connecting.size));
-
-			for (int i = this->size; i < this->size + connecting.size; i++)
+			if (this->values = (T*)realloc(this->values, sizeof(T) * (this->size + connecting.size)))
 			{
-				this->values[i] = connecting.values[i - this->size];
-			}
+				for (size_t i = this->size; i < this->size + connecting.size; i++)
+				{
+					this->values[i] = connecting.values[i - this->size];
+				}
 
-			this->size += connecting.size;
+				this->size += connecting.size;
+			}
+			else
+			{
+				throw "MeomoryLeaks";
+			}
 		}
 
 		T& at(size_t index)
@@ -99,7 +183,7 @@ namespace EB
 			{
 				T result = this->values[index];
 
-				for (int i = index; i < this->size - 1; i++)
+				for (size_t i = index; i < this->size - 1; i++)
 				{
 					this->values[i] = this->values[i + 1];
 				}
@@ -160,7 +244,7 @@ namespace EB
 			{
 				Array<T>* result = new Array<T>(end - start);
 
-				for (int i = start; i < end; i++)
+				for (size_t i = start; i < end; i++)
 				{
 					result->values[i - start] = this->values[i];
 				}
@@ -178,6 +262,11 @@ namespace EB
 			List<T>* result = new List<T>(this->values, this->size);
 			
 			return result;
+		}
+
+		void qsort(bool (*condition)(T x, T y) = [](T x, T y)->bool {return x < y; })
+		{
+			parted_qsort(0, this->size - 1, condition);
 		}
 	};
 }

@@ -1,9 +1,12 @@
 #pragma once
 #include <iostream>
-#include "queue.cpp";
 
 namespace EB
 {
+	template <typename T>
+	class Queue;
+
+
 	const int INORDER = 0;
 	const int PREORDER = 1;
 	const int POSTORDER = 2;
@@ -72,7 +75,7 @@ namespace EB
 		}
 
 	private:
-		inline long long max(T x, T y) { return x > y ? x : y; }
+		inline long long max(long long x, long long y) { return x > y ? x : y; }
 		long long height(Node* node)
 		{
 			if (!node)

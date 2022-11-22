@@ -1,8 +1,10 @@
 #pragma once
-#include "list.cpp"
 
 namespace EB
 {
+	template <typename T>
+	class List;
+
 	template <typename T>
 	class Stack : protected List<T>
 	{
