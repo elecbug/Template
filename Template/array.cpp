@@ -206,9 +206,9 @@ namespace EB
 				}
 			}
 
-			return -1;
+			throw "NotFound";
 		}
-		size_t index_of(bool (*condition)(T x))
+		size_t find(bool (*condition)(T x))
 		{
 			for (int i = 0; i < count(); i++)
 			{
@@ -218,7 +218,7 @@ namespace EB
 				}
 			}
 
-			return -1;
+			throw "NotFound";
 		}
 		size_t count()
 		{

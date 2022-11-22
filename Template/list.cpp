@@ -181,7 +181,7 @@ namespace EB
 				}
 			}
 
-			return -1;
+			throw "NotFound";
 		}
 		size_t index_of(bool (*condition)(T x))
 		{
@@ -199,7 +199,7 @@ namespace EB
 				}
 			}
 
-			return -1;
+			throw "NotFound";
 		}
 		size_t count()
 		{
