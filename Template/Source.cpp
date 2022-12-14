@@ -320,7 +320,7 @@ void test_time_complex()
 	}
 
 	c = clock();
-	for (int i = 0; i < 100; i++)
+	for (int i = 0; i < 1000; i++)
 	{
 		bst.find(i * 100);
 	}
@@ -343,7 +343,7 @@ int main()
 	// bst_test();
 	// heap_test();
 	// map_test();
-	// test_time_complex();
+	 test_time_complex();
 
 	_CrtDumpMemoryLeaks();
 }
