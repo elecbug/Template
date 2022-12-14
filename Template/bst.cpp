@@ -32,6 +32,8 @@ namespace EB
 		Node* root;
 		size_t size;
 		bool avl_mode;
+		int max_avl_count;
+		int avl_count = 0;
 
 		void inorder(Node* root)
 		{
@@ -153,22 +155,25 @@ namespace EB
 		bool (*condition)(T x, T y) = [](T x, T y)->bool { return x < y; };
 
 	public:
-		BST(bool avl_mode = false)
+		BST(bool avl_mode = false, int avl_count = 1)
 		{
 			this->root = 0;
 			this->size = 0;
 			this->avl_mode = avl_mode;
+			this->max_avl_count = avl_count;
 		}
-		BST(T* values, size_t length, bool avl_mode = false)
+		BST(T* values, size_t length, bool avl_mode = false, int avl_count = 1)
 		{
 			this->root = 0;
 			this->size = 0;
 			this->avl_mode = avl_mode;
+			this->max_avl_count = avl_count;
 			insert(values, length);
 		}
 		BST(const BST<T>& bst)
 		{
 			this->avl_mode = bst.avl_mode;
+			this->max_avl_count = bst.max_avl_count;
 
 			Queue<T>* queue = new Queue<T>();
 			condition_order(bst.root, queue, [](T data)->bool { return true; });
@@ -212,9 +217,13 @@ namespace EB
 							location->left = new Node(value);
 							this->size++;
 
-							if (this->avl_mode)
+							if (this->avl_mode && this->max_avl_count == this->avl_count)
 							{
 								avl_violation(this->root);
+							}
+							else
+							{
+								this->avl_count++;
 							}
 
 							return true;
@@ -231,9 +240,13 @@ namespace EB
 							location->right = new Node(value);
 							this->size++;
 
-							if (this->avl_mode)
+							if (this->avl_mode && this->max_avl_count == this->avl_count)
 							{
 								avl_violation(this->root);
+							}
+							else
+							{
+								this->avl_count++;
 							}
 
 							return true;
@@ -350,9 +363,13 @@ namespace EB
 							delete location;
 							this->size--;
 
-							if (this->avl_mode && this->root)
+							if (this->avl_mode && this->root && this->max_avl_count == this->avl_count)
 							{
 								avl_violation(this->root);
+							}
+							else
+							{
+								this->avl_count++;
 							}
 
 							return result;
