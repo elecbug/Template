@@ -332,7 +332,6 @@ void test_time_complex()
 		bst.insert(i + 10000);
 	}
 	printf("%d\n", clock() - c);
-
 }
 
 int main()
