@@ -220,6 +220,7 @@ namespace EB
 							if (this->avl_mode && this->max_avl_count == this->avl_count)
 							{
 								avl_violation(this->root);
+								this->avl_count = 0;
 							}
 							else
 							{
@@ -243,6 +244,7 @@ namespace EB
 							if (this->avl_mode && this->max_avl_count == this->avl_count)
 							{
 								avl_violation(this->root);
+								this->avl_count = 0;
 							}
 							else
 							{
@@ -366,6 +368,7 @@ namespace EB
 							if (this->avl_mode && this->root && this->max_avl_count == this->avl_count)
 							{
 								avl_violation(this->root);
+								this->avl_count = 0;
 							}
 							else
 							{

@@ -312,9 +312,9 @@ void test_time_complex()
 	}
 	printf("%d\n", clock() - c);*/
 
-	EB::BST<int> bst(true);
+	EB::BST<int> bst(true, 1000);
 
-	for (int i = 0; i < 10000; i++)
+	for (int i = 0; i < 100000; i++)
 	{
 		bst.insert(i);
 	}
@@ -327,9 +327,9 @@ void test_time_complex()
 	printf("%d\n", clock() - c);
 
 	c = clock();
-	for (int i = 0; i < 10000; i++)
+	for (int i = 0; i < 100000; i++)
 	{
-		bst.insert(i + 10000);
+		bst.insert(i + 100000);
 	}
 	printf("%d\n", clock() - c);
 }
@@ -343,7 +343,7 @@ int main()
 	// bst_test();
 	// heap_test();
 	// map_test();
-	test_time_complex();
+	// test_time_complex();
 
 	_CrtDumpMemoryLeaks();
 }
