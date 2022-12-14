@@ -165,23 +165,23 @@ void array_test()
 
 void bst_test()
 {
-	EB::BST<int> bst = EB::BST<int>();
+	EB::BST<int> bstree = EB::BST<int>();
 
 	for (int i = 0; i < 100; i++)
 	{
-		bst.insert(i % 2 == 1 ? i * 2 + 1 : i / 2);
+		bstree.insert(i % 2 == 1 ? i * 2 + 1 : i / 2);
 	}
 
-	EB::BST<int> bst2 = EB::BST<int>(bst);
+	EB::BST<int> bst2 = EB::BST<int>(bstree);
 
-	bst.order(EB::INORDER);
+	bstree.order(EB::INORDER);
 	std::cout << std::endl;
 	
 	for (int i = 110; i < 150; i++)
 	{
 		try
 		{
-			std::cout << bst.remove(i) << " ";
+			std::cout << bstree.remove(i) << " ";
 		}
 		catch (const char* str)
 		{
@@ -190,14 +190,14 @@ void bst_test()
 	}
 	std::cout << std::endl;
 
-	bst.remove_all([](int data)->bool {return data > 10 && data < 30; });
+	bstree.remove_all([](int data)->bool {return data > 10 && data < 30; });
 
-	bst.order(EB::INORDER);
+	bstree.order(EB::INORDER);
 	std::cout << std::endl;
 
-	bst.remove_all();
+	bstree.remove_all();
 	
-	bst.order(EB::INORDER);
+	bstree.order(EB::INORDER);
 	std::cout << std::endl;
 
 	bst2.order(EB::INORDER);
@@ -276,6 +276,65 @@ void map_test()
 	std::cout << map.value(3) << std::endl;
 }
 
+void test_time_complex()
+{
+	clock_t c;
+
+	/*EB::Array<int> arr(100000, 0);
+	
+	c = clock();
+	for (int i = 0; i < 100; i++)
+	{
+		arr.at(i * 1000);
+	}
+	printf("%d\n", clock() - c);
+	
+	c = clock();
+	for (int i = 0; i < 100000; i++)
+	{
+		arr.insert(0, i);
+	}
+	printf("%d\n", clock() - c);
+
+	EB::List<int> list(100000, 0);
+
+	c = clock();
+	for (int i = 0; i < 100; i++)
+	{
+		list.at(i * 1000);
+	}
+	printf("%d\n", clock() - c);
+
+	c = clock();
+	for (int i = 0; i < 100000; i++)
+	{
+		list.insert(0, i);
+	}
+	printf("%d\n", clock() - c);*/
+
+	EB::BST<int> bst(true);
+
+	for (int i = 0; i < 10000; i++)
+	{
+		bst.insert(i);
+	}
+
+	c = clock();
+	for (int i = 0; i < 100; i++)
+	{
+		bst.find(i * 100);
+	}
+	printf("%d\n", clock() - c);
+
+	c = clock();
+	for (int i = 0; i < 10000; i++)
+	{
+		bst.insert(i + 10000);
+	}
+	printf("%d\n", clock() - c);
+
+}
+
 int main()
 {
 	// list_test();
@@ -284,7 +343,8 @@ int main()
 	// array_test();
 	// bst_test();
 	// heap_test();
-	map_test();
+	// map_test();
+	test_time_complex();
 
 	_CrtDumpMemoryLeaks();
 }

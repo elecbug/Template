@@ -48,7 +48,7 @@ namespace EB
 				T& pivot = at(end);
 				end--;
 
-				while (start < end)
+				while (start <= end)
 				{
 					while (condition(at(start), pivot))
 					{

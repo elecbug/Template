@@ -140,13 +140,13 @@ namespace EB
 
 			return node;
 		}
-		void avl_violation(Node* root)
+		void avl_violation(Node*& root)
 		{
 			if (root)
 			{
 				root = check_violation(root);
-				root->left = check_violation(root->left);
-				root->right = check_violation(root->right);
+				avl_violation(root->left);
+				avl_violation(root->right);
 			}
 		}
 
@@ -214,7 +214,7 @@ namespace EB
 
 							if (this->avl_mode)
 							{
-								this->root = check_violation(this->root);
+								avl_violation(this->root);
 							}
 
 							return true;
@@ -233,7 +233,7 @@ namespace EB
 
 							if (this->avl_mode)
 							{
-								this->root = check_violation(this->root);
+								avl_violation(this->root);
 							}
 
 							return true;
@@ -352,7 +352,7 @@ namespace EB
 
 							if (this->avl_mode && this->root)
 							{
-								this->root = check_violation(this->root);
+								avl_violation(this->root);
 							}
 
 							return result;
