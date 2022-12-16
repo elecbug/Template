@@ -67,8 +67,8 @@ namespace EB
 		{
 			this->data = new Array<T>(0); 
 			this->size = 0;
-			inserts(values, length);
 			this->condition = condition;
+			insert(values, length);
 		}
 		Heap(const Heap<T>& heap)
 		{
@@ -89,7 +89,7 @@ namespace EB
 
 			up_swap(this->data->count() - 1);
 		}
-		void inserts(T* values, size_t length)
+		void insert(T* values, size_t length)
 		{
 			for (int i = 0; i < length; i++)
 			{
@@ -138,7 +138,7 @@ namespace EB
 
 			for (int i = 0; i < this->size; i++)
 			{
-				result->at(i) = heap.remove_top();
+				result->at(this->size - (i + 1)) = heap.remove_top();
 			}
 
 			return result;

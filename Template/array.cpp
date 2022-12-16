@@ -208,7 +208,7 @@ namespace EB
 
 		Array<T>* sort()
 		{
-			Heap<T>* heap = new Heap<T>(this->values, this->size, [](T x, T y)->bool {return x > y; });
+			Heap<T>* heap = new Heap<T>(this->values, this->size);
 			
 			return heap->heap_sort();
 		}

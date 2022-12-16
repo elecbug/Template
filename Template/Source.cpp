@@ -129,7 +129,7 @@ void array_test()
 {
 	EB::Array<int> hi = EB::Array<int>(10000);
 	for (int i = 0; i < hi.count(); i++)
-		hi.at(i) = 1;
+		hi.at(i) = 1; // hi.count() - i;
 	EB::Array<int>* hello = hi.sort();
 	for (int i = 0; i < hi.count(); i++)
 		std::cout << hello->at(i) << " ";
