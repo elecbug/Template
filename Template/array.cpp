@@ -5,6 +5,8 @@ namespace EB
 {
 	template <typename T>
 	class List;
+	template <typename T>
+	class Heap;
 
 	template <typename T>
 	class Array
@@ -19,53 +21,6 @@ namespace EB
 			T temp = x;
 			x = y;
 			y = temp;
-		}
-		size_t middle(size_t* points)
-		{
-			if (at(points[0]) > at(points[1]) && at(points[0]) > at(points[2]))
-			{
-				return at(points[1]) > at(points[2]) ? points[1] : points[2];
-			}
-			else if (at(points[1]) > at(points[0]) && at(points[1]) > at(points[2]))
-			{
-				return at(points[0]) > at(points[2]) ? points[0] : points[2];
-			}
-			else
-			{
-				return at(points[0]) > at(points[1]) ? points[0] : points[1];
-			}
-		}
-		void parted_qsort(size_t start, size_t end, bool (*condition)(T x, T y))
-		{
-			if (start < end)
-			{
-				size_t f_start = start, f_end = end;
-				size_t points[] = { start, (start + end) / 2, end };
-				size_t point = middle(points);
-
-				swap(at(point), at(end));
-
-				T& pivot = at(end);
-				end--;
-
-				while (start <= end)
-				{
-					while (condition(at(start), pivot))
-					{
-						start++;
-					}
-					while (condition(pivot, at(end)))
-					{
-						end--;
-					}
-					swap(at(start), at(end));
-				}
-				swap(at(start), at(end));
-				swap(pivot, at(end + 1));
-
-				parted_qsort(f_start, end, condition);
-				parted_qsort(end + 2, f_end, condition);
-			}
 		}
 
 	public:
@@ -251,9 +206,11 @@ namespace EB
 			return result;
 		}
 
-		void qsort(bool (*condition)(T x, T y) = [](T x, T y)->bool {return x < y; })
+		Array<T>* sort()
 		{
-			parted_qsort(0, this->size - 1, condition);
+			Heap<T>* heap = new Heap<T>(this->values, this->size, [](T x, T y)->bool {return x > y; });
+			
+			return heap->heap_sort();
 		}
 	};
 }

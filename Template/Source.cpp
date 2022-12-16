@@ -38,7 +38,7 @@ void list_test()
 
 	EB::List<int> list2 = EB::List<int>(9, 10);
 	list2.add(30);
-	
+
 	list2.append(list);
 
 	for (int i = 0; i < list2.count(); i++)
@@ -54,7 +54,7 @@ void list_test()
 	delete list4;
 
 	list2.remove_all([](int x)->bool {return x > 5; });
-	
+
 	for (int i = 0; i < list2.count(); i++)
 		std::cout << list2.at(i) << " ";
 	std::cout << std::endl;
@@ -89,7 +89,7 @@ void stack_test()
 		stack.push(i);
 
 	for (int i = 0; i < 5; i++)
-		std::cout << stack.pop() <<" ";
+		std::cout << stack.pop() << " ";
 	std::cout << std::endl;
 
 	for (int i = 0; i < 10; i++)
@@ -127,39 +127,12 @@ void queue_test()
 
 void array_test()
 {
-	int src[] = { 0,1,2,3,4,5 };
-	EB::Array<int> arr = EB::Array<int>(src, sizeof(src) / 4);
-
-	arr.insert(0, -1);
-	arr.add(6);
-	arr.remove_at(7);
-	arr.remove_all([](int x)->bool {return x >= 4; });
-
-	for (int i = 0; i < arr.count(); i++)
-		std::cout << arr.at(i) << " ";
-	std::cout << std::endl;
-
-	auto arr2 = EB::Array<int>(src, sizeof(src) / 4);
-	arr.append(arr2);
-
-	for (int i = 0; i < arr.count(); i++)
-		std::cout << arr.at(i) << " ";
-	std::cout << std::endl;
-
-	auto arr3 = arr.subarray(1, 4);
-
-	for (int i = 0; i < arr3->count(); i++)
-		std::cout << arr3->at(i) << " ";
-	std::cout << std::endl;
-
-	delete arr3;
-
-	EB::Array<int> hi = EB::Array<int>(100);
-	for (int i = 100; i > 0; i--)
-		hi.at(100 - i) = i;
-	hi.qsort();
+	EB::Array<int> hi = EB::Array<int>(10000);
 	for (int i = 0; i < hi.count(); i++)
-		std::cout << hi.at(i) << " ";
+		hi.at(i) = 1;
+	EB::Array<int>* hello = hi.sort();
+	for (int i = 0; i < hi.count(); i++)
+		std::cout << hello->at(i) << " ";
 	std::cout << std::endl;
 }
 
@@ -176,7 +149,7 @@ void bst_test()
 
 	bstree.order(EB::INORDER);
 	std::cout << std::endl;
-	
+
 	for (int i = 110; i < 150; i++)
 	{
 		try
@@ -196,7 +169,7 @@ void bst_test()
 	std::cout << std::endl;
 
 	bstree.remove_all();
-	
+
 	bstree.order(EB::INORDER);
 	std::cout << std::endl;
 
@@ -235,7 +208,7 @@ void bst_test()
 void heap_test()
 {
 	EB::Heap<int> heap = EB::Heap<int>([](int x, int y)->bool {return x < y; });
-	
+
 	for (int i = 0; i < 10000; i++)
 	{
 		heap.insert(i % 2 == 0 ? i * 4 : i * 3);
@@ -281,14 +254,14 @@ void test_time_complex()
 	clock_t c;
 
 	/*EB::Array<int> arr(100000, 0);
-	
+
 	c = clock();
 	for (int i = 0; i < 100; i++)
 	{
 		arr.at(i * 1000);
 	}
 	printf("%d\n", clock() - c);
-	
+
 	c = clock();
 	for (int i = 0; i < 100000; i++)
 	{
@@ -339,11 +312,11 @@ int main()
 	// list_test();
 	// stack_test();
 	// queue_test();
-	// array_test();
+	array_test();
 	// bst_test();
 	// heap_test();
 	// map_test();
-	 test_time_complex();
+	// test_time_complex();
 
 	_CrtDumpMemoryLeaks();
 }

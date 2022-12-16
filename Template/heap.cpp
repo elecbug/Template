@@ -36,7 +36,7 @@ namespace EB
 
 		void up_swap(size_t index)
 		{
-			if (this->condition(this->data->at(index), this->data->at(parent(index))) && parent(index) != index)
+			if (parent(index) != index && this->condition(this->data->at(index), this->data->at(parent(index))))
 			{
 				swap(this->data->at(index), this->data->at(parent(index)));
 				up_swap(parent(index));
@@ -67,7 +67,7 @@ namespace EB
 		{
 			this->data = new Array<T>(0); 
 			this->size = 0;
-			insert(values, length);
+			inserts(values, length);
 			this->condition = condition;
 		}
 		Heap(const Heap<T>& heap)
@@ -89,7 +89,7 @@ namespace EB
 
 			up_swap(this->data->count() - 1);
 		}
-		void insert(T* values, size_t length)
+		void inserts(T* values, size_t length)
 		{
 			for (int i = 0; i < length; i++)
 			{
