@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 typedef int element;
-typedef long long int counter;
+typedef long long int indexer;
 
 typedef struct node
 {
@@ -16,7 +16,7 @@ typedef struct list
 {
 	Node* head;
 	Node* tail;
-	counter count;
+	indexer count;
 
 } List;
 
@@ -40,19 +40,43 @@ void initialize(List** list)
 	}
 }
 
-Node* node(List* list, counter index)
+Node* node(List* list, indexer index)
 {
-	Node* now = list->head->next;
-
-	for (int i = 0; i < index; i++)
+	if (index < 0 || index > list->count)
 	{
-		now = now->next;
+		return NULL;
+	}
+
+	Node* now;
+	
+	if (index < list->count / 2)
+	{
+		now = list->head->next;
+
+		for (int i = 0; i < index; i++)
+		{
+			now = now->next;
+		}
+	}
+	else
+	{
+		now = list->tail;
+
+		for (int i = list->count; i > index; i--)
+		{
+			now = now->prev;
+		}
 	}
 
 	return now;
 }
 
-void insert(List* list, counter index, element value)
+element* at(List* list, indexer index)
+{
+	return &(node(list, index)->data);
+}
+
+void insert(List* list, indexer index, element value)
 {
 	Node* loc = node(list, index);
 	Node* plus = (Node*)malloc(sizeof(Node));
@@ -70,7 +94,7 @@ void insert(List* list, counter index, element value)
 	}
 }
 
-void remove(List* list, counter index)
+void erase(List* list, indexer index)
 {
 	Node* loc = node(list, index);
 
@@ -86,7 +110,7 @@ void dispose(List** list)
 {
 	while ((*list)->count != 0)
 	{
-		remove(*list, 0);
+		erase(*list, 0);
 	}
 
 	free((*list)->head);
